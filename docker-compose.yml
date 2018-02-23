@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+
+    redis:
+        build: docker/redis
+        restart: always
+
+    web:
+        build: docker/nginx
+        ports:
+          - 8018:80
+        volumes:
+          - ./web:/var/www/web
+          - ${LOGS_PREFIX_PATH}/web/:/var/log/nginx
+        restart: always
+
+    php_fpm:
+        build:
+          context: docker/php
+          args:
+            TIMEZONE: ${TIMEZONE}
+            USER_EMAIL: ${USER_EMAIL}
+            USER_NAME: ${USER_NAME}
+        volumes:
+          - ./web:/var/www/web
+          - ${LOGS_PREFIX_PATH}/php:/var/www/web/logs
+          - ~/.ssh:/root/.ssh
+        expose:
+          - 9001
+          - 9000

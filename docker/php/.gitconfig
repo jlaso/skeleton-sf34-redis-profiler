@@ -1,0 +1,19 @@
+[alias]
+    st = status
+    co = checkout
+    ci = commit
+    rb = rebase
+    br = branch
+    pl = pull
+    pu = push
+    ad = add
+    mt = mergetool
+    df = diff
+    lg = log --graph --name-status --oneline
+
+ [core]
+     editor = nano
+     #autocrlf = true
+
+ [color]
+     ui = true

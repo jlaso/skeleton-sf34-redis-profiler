@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+
+<div>
+    <input id="main_button" type="button" value="RUN"/>
+</div>
+
+<div>
+    <hr>
+    Don't forget to inspect in order to see the flow of requests.
+</div>
+
+<div id="result">
+
+</div>
+
+</body>
+
+<script>
+
+    var requests = 3;
+
+    $('#main_button').click(function () {
+
+        var i, html = '';
+        for (i = 0; i < requests; i++) {
+            html += '<div id="div_' + i + '">[O]</div>';
+        }
+        $('#result').html(html);
+        for (i = 0; i < requests; i++) {
+            $.post(
+                '/app_dev.php/ajax?channel='+i,
+                {
+                    seconds: 6-i,
+                    index: i
+                }
+            )
+                .done(function (data) {
+                        console.log(data);
+                        console.log("#div_" + data.index);
+                        $("#div_" + data.index).html(data.result);
+                    }
+                );
+        }
+    });
+</script>
+</html>

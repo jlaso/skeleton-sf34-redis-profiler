@@ -1,0 +1,8 @@
+.idea
+web/logs/
+.env
+
+web/vendor
+
+web/var/cache/*
+web/var/logs/*
